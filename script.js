@@ -543,7 +543,7 @@ const MemoryScene = {
         LetterScene.start();
     },
 
-    showPhoto(src, caption) {
+        showPhoto(src, caption) {
         return new Promise(async resolve => {
             const background = $("#memory-background");
             const image = $("#memory-photo");
@@ -564,7 +564,10 @@ const MemoryScene = {
                 await wait(600);
 
                 wrapper.classList.add("show");
+                
+                /* FIX: Clear text and set spellcheck=false to stop mobile keyboard interference */
                 captionElement.textContent = "";
+                captionElement.setAttribute("spellcheck", "false");
                 captionElement.classList.add("show");
 
                 await this.typeCaption(captionElement, caption);
@@ -593,6 +596,7 @@ const MemoryScene = {
             }
         });
     },
+
     typeCaption(element, text) {
         return new Promise(resolve => {
             let index = 0;
