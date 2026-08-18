@@ -543,18 +543,20 @@ const MemoryScene = {
         LetterScene.start();
     },
 
-        showPhoto(src, caption) {
+          showPhoto(src, caption) {
         return new Promise(async resolve => {
             const background = $("#memory-background");
             const image = $("#memory-photo");
             const wrapper = $("#memory-photo-wrapper");
             const captionElement = $("#memory-caption");
 
-            /* CRITICAL FIX: Preload Image before displaying it to prevent blank/broken boxes */
             const preloadImg = new Image();
-            preloadImg.src = src;
+            let hasStarted = false; /* <--- This is the lock that stops the double typing */
 
             const proceed = async () => {
+                if (hasStarted) return; /* If it already started, stop! */
+                hasStarted = true;     /* Lock the door */
+
                 background.style.backgroundImage = `url("${src}")`;
                 image.src = src;
 
@@ -565,7 +567,6 @@ const MemoryScene = {
 
                 wrapper.classList.add("show");
                 
-                /* FIX: Clear text and set spellcheck=false to stop mobile keyboard interference */
                 captionElement.textContent = "";
                 captionElement.setAttribute("spellcheck", "false");
                 captionElement.classList.add("show");
@@ -582,15 +583,18 @@ const MemoryScene = {
                 resolve();
             };
 
+            // Attach handlers BEFORE setting src
             preloadImg.onload = proceed;
             
-            // Error fallback: Skip image if it fails to load
+            // Error fallback
             preloadImg.onerror = () => {
                 console.error("Failed to load image:", src);
                 setTimeout(() => resolve(), 500);
             };
 
-            /* NEW: If the image is already cached, load it immediately */
+            preloadImg.src = src;
+
+            /* If the image is already cached, load it immediately */
             if (preloadImg.complete) {
                 proceed();
             }
