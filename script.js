@@ -22,7 +22,7 @@ const CONFIG = {
     ],
 
     captions: [
-        "....................................................",
+        "..........always  happy ...........",
         "Your Smile Makes Even Ordinary Moments Special.....",
         "Some Memories Deserve to Stay Forever.....",
         "With You, Every Moment Feels Magical.....",
