@@ -22,11 +22,11 @@ const CONFIG = {
     ],
 
     captions: [
-        "..........always  happy ...........",
+        "Every Moment With You Makes Me Happy......",
         "Your Smile Makes Even Ordinary Moments Special.....",
         "Some Memories Deserve to Stay Forever.....",
         "With You, Every Moment Feels Magical.....",
-        "You Are My Only Happiness..",
+        "You Are My Only Happiness For Forever..",
         "And This is Only The Beginning of Our Story."
     ],
 
